@@ -1,8 +1,16 @@
 // src/components/layout/Header.jsx
 import { motion } from 'framer-motion';
 import CountrySelector from '../ui/CountrySelector';
+import useElectionStore from '../../store/useElectionStore';
 
 export default function Header({ onMenuToggle }) {
+  const {
+    isDemoMode,
+    enableDemoMode,
+    disableDemoMode,
+    selectedElectionLabel,
+  } = useElectionStore();
+
   return (
     <header className="sticky top-0 z-30 bg-[var(--color-bg)]/80 backdrop-blur-xl border-b border-[var(--color-border)]">
       <div className="flex items-center justify-between px-6 py-3">
@@ -30,11 +38,26 @@ export default function Header({ onMenuToggle }) {
         <div className="hidden md:flex items-center gap-1 text-[11px] font-body font-medium tracking-wider uppercase text-[var(--color-text-muted)]">
           <span className="text-[var(--color-accent-gold)]">Election Intelligence</span>
           <span className="mx-1">·</span>
-          <span>Companion</span>
+          <span>{isDemoMode && selectedElectionLabel ? selectedElectionLabel : 'Companion'}</span>
         </div>
 
-        {/* Right: Country selector */}
+        {/* Right: controls */}
         <div className="flex items-center gap-3">
+          <button
+            type="button"
+            aria-pressed={isDemoMode}
+            onClick={() => (isDemoMode ? disableDemoMode() : enableDemoMode())}
+            className={`hidden sm:inline-flex items-center gap-3 px-3 py-2 rounded-full border transition-all ${
+              isDemoMode
+                ? 'bg-[rgba(192,57,43,0.12)] border-[rgba(192,57,43,0.25)] text-[var(--color-accent-crimson)]'
+                : 'bg-[rgba(212,168,83,0.06)] border-[rgba(212,168,83,0.18)] text-[var(--color-accent-gold)]'
+            }`}
+          >
+            <span className="text-[10px] font-body font-semibold tracking-[0.18em] uppercase">Demo Mode</span>
+            <span className={`relative inline-flex h-4 w-8 rounded-full border transition-colors ${isDemoMode ? 'border-[rgba(192,57,43,0.35)] bg-[rgba(192,57,43,0.25)]' : 'border-[rgba(212,168,83,0.3)] bg-[rgba(212,168,83,0.12)]'}`}>
+              <span className={`absolute top-[1px] h-3 w-3 rounded-full bg-[var(--color-bg)] transition-transform ${isDemoMode ? 'translate-x-4' : 'translate-x-[1px]'}`} />
+            </span>
+          </button>
           <CountrySelector />
         </div>
       </div>

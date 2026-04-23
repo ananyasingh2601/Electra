@@ -79,7 +79,7 @@ function SuggestionChips({ suggestions, onSelect }) {
 }
 
 export default function ChatWidget({ isOpen, onClose, prefillMessage }) {
-  const { chatMessages, isTyping } = useElectionStore();
+  const { chatMessages, isTyping, isDemoMode } = useElectionStore();
   const { sendMessage, isLoading } = useGeminiChat();
   const [input, setInput] = useState('');
   const messagesEndRef = useRef(null);
@@ -88,7 +88,7 @@ export default function ChatWidget({ isOpen, onClose, prefillMessage }) {
     try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch { return []; }
   });
 
-  const allMessages = chatMessages.length > 0 ? chatMessages : localMessages;
+  const allMessages = isDemoMode ? chatMessages : (chatMessages.length > 0 ? chatMessages : localMessages);
 
   useEffect(() => {
     if (chatMessages.length > 0) {
@@ -96,6 +96,18 @@ export default function ChatWidget({ isOpen, onClose, prefillMessage }) {
       setLocalMessages(chatMessages);
     }
   }, [chatMessages]);
+
+  useEffect(() => {
+    if (isDemoMode) return;
+    if (chatMessages.length === 0) {
+      try {
+        localStorage.removeItem(STORAGE_KEY);
+      } catch {
+        // Ignore storage errors in restricted environments.
+      }
+      setLocalMessages([]);
+    }
+  }, [isDemoMode, chatMessages.length]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });

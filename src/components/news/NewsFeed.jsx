@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { NewsService } from '../../services/newsService';
+import useElectionStore from '../../store/useElectionStore';
 
 const FILTERS = [
   { id: 'all', label: 'All' },
@@ -54,9 +55,16 @@ export default function NewsFeed() {
   const [filter, setFilter] = useState('all');
   const [visibleCount, setVisibleCount] = useState(6);
   const [refreshing, setRefreshing] = useState(false);
+  const { isDemoMode, demoNews } = useElectionStore();
 
   const fetchNews = async () => {
     setLoading(true);
+    if (isDemoMode) {
+      setArticles(demoNews);
+      setVisibleCount(6);
+      setLoading(false);
+      return;
+    }
     const apiKey = import.meta.env.VITE_GOOGLE_CUSTOM_SEARCH_API_KEY;
     const engineId = import.meta.env.VITE_GOOGLE_CUSTOM_SEARCH_ENGINE_ID;
     const service = new NewsService(apiKey, engineId);
@@ -65,9 +73,29 @@ export default function NewsFeed() {
     setLoading(false);
   };
 
-  useEffect(() => { fetchNews(); }, []);
+  useEffect(() => {
+    if (isDemoMode) {
+      setArticles(demoNews);
+      setLoading(false);
+      setVisibleCount(6);
+      setFilter('all');
+      return;
+    }
+    fetchNews();
+  }, [isDemoMode, demoNews]);
 
-  const handleRefresh = async () => { setRefreshing(true); await fetchNews(); setRefreshing(false); };
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    if (isDemoMode) {
+      setArticles(demoNews);
+      setVisibleCount(6);
+      setFilter('all');
+      setRefreshing(false);
+      return;
+    }
+    await fetchNews();
+    setRefreshing(false);
+  };
 
   const filtered = filter === 'all' ? articles
     : filter === 'official' ? articles.filter(a => a.source?.includes('eci.gov.in'))

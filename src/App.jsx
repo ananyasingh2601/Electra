@@ -3,6 +3,7 @@ import { useState, useCallback, useEffect, lazy, Suspense, Component } from 'rea
 import { motion, AnimatePresence } from 'framer-motion';
 import Sidebar from './components/layout/Sidebar';
 import Footer from './components/layout/Footer';
+import Header from './components/layout/Header';
 import Hero from './components/Hero';
 import ElectionTimeline from './components/timeline/ElectionTimeline';
 import ChatWidget from './components/chat/ChatWidget';
@@ -112,23 +113,7 @@ export default function App() {
 
         {/* Main content */}
         <main id="main-content" className="app-main" role="main">
-          {/* Mobile top bar */}
-          <div className="lg:hidden flex items-center justify-between mb-4 py-2">
-            <button onClick={() => setSidebarOpen(true)} aria-label="Open navigation menu"
-              className="p-2 rounded-[var(--radius-sm)] hover:bg-[rgba(255,255,255,0.05)] min-w-[44px] min-h-[44px] flex items-center justify-center">
-              <svg className="w-5 h-5 text-[var(--color-text-secondary)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
-            <div className="flex items-center gap-2">
-              <span className="text-base">🗳️</span>
-              <span className="font-display text-base font-bold text-[var(--color-text-primary)]">ELECTRA</span>
-            </div>
-            <button onClick={() => setChatOpen(true)} aria-label="Open chat"
-              className="p-2 rounded-[var(--radius-sm)] hover:bg-[rgba(255,255,255,0.05)] min-w-[44px] min-h-[44px] flex items-center justify-center">
-              <span className="text-base">💬</span>
-            </button>
-          </div>
+          <Header onMenuToggle={() => setSidebarOpen(true)} />
 
           <ErrorBoundary>
             <Hero onExploreTimeline={() => scrollTo('timeline')} onAskQuestion={() => setChatOpen(true)} />

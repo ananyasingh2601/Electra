@@ -1,10 +1,12 @@
 // src/components/calendar/CalendarSync.jsx
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ELECTION_DATES } from '../../data/electionDates';
 import { formatDate, getRelativeTime, isPast } from '../../utils/dateUtils';
 import { useGoogleAuth } from '../../hooks/useGoogleAuth';
 import { CalendarService } from '../../services/calendarService';
+import useElectionStore from '../../store/useElectionStore';
+import { DEMO_CALENDAR_SYNC } from '../../data/demoMode';
 
 const SYNCABLE_DATES = [
   { id: 'registration', icon: '🗓️', title: 'Last Date for Voter Registration', date: '2025-10-15', description: 'Final date to register or update voter details', important: false },
@@ -52,6 +54,24 @@ export default function CalendarSync() {
   const [syncedIds, setSyncedIds] = useState([]);
   const [syncDone, setSyncDone] = useState(false);
   const { signIn, isAuthenticated } = useGoogleAuth();
+  const { isDemoMode, demoCalendarSync } = useElectionStore();
+
+  useEffect(() => {
+    if (isDemoMode) {
+      setChecked(SYNCABLE_DATES.reduce((acc, d) => ({ ...acc, [d.id]: true }), {}));
+      setReminder(DEMO_CALENDAR_SYNC.reminder);
+      setSyncedIds([...demoCalendarSync.syncedIds]);
+      setSyncDone(true);
+      setSyncing(false);
+      return;
+    }
+
+    setChecked(SYNCABLE_DATES.reduce((acc, d) => ({ ...acc, [d.id]: true }), {}));
+    setReminder('1d');
+    setSyncedIds([]);
+    setSyncDone(false);
+    setSyncing(false);
+  }, [isDemoMode, demoCalendarSync.syncedIds]);
 
   const selectedDates = SYNCABLE_DATES.filter(d => checked[d.id]);
 

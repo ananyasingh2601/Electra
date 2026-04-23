@@ -2,13 +2,14 @@
 import { useState, useCallback, useRef } from 'react';
 import { GeminiService } from '../services/geminiService';
 import useElectionStore from '../store/useElectionStore';
+import { getDemoChatReply } from '../data/demoMode';
 
 export function useGeminiChat() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const geminiRef = useRef(null);
   
-  const { addChatMessage, setIsTyping, selectedElectionType } = useElectionStore();
+  const { addChatMessage, setIsTyping, selectedElectionType, isDemoMode } = useElectionStore();
 
   const getService = useCallback(() => {
     if (!geminiRef.current) {
@@ -33,6 +34,26 @@ export function useGeminiChat() {
       text: userMessage,
       timestamp: new Date().toISOString()
     });
+
+    if (isDemoMode) {
+      const demoReply = getDemoChatReply(userMessage) || {
+        text: "I can help with the election schedule, MCC rules, voter eligibility, booth lookup, and calendar sync. Try asking about the Model Code of Conduct or the Lok Sabha 2024 timeline.\n\n📎 Source: eci.gov.in",
+        suggestions: ['What is the Model Code of Conduct?', 'When does it come into effect?', 'How long does the MCC last?'],
+      };
+
+      setTimeout(() => {
+        addChatMessage({
+          id: Date.now() + 1,
+          role: 'assistant',
+          text: demoReply.text,
+          suggestions: demoReply.suggestions,
+          timestamp: new Date().toISOString()
+        });
+        setIsLoading(false);
+        setIsTyping(false);
+      }, 250);
+      return;
+    }
 
     const service = getService();
 
@@ -94,7 +115,7 @@ export function useGeminiChat() {
       setIsLoading(false);
       setIsTyping(false);
     }
-  }, [getService, addChatMessage, setIsTyping, selectedElectionType]);
+  }, [getService, addChatMessage, setIsTyping, selectedElectionType, isDemoMode]);
 
   const clearChat = useCallback(() => {
     const service = getService();

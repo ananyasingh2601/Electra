@@ -1,6 +1,9 @@
 // src/components/eligibility/EligibilityChecker.jsx
 import { useState } from 'react';
+import { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import useElectionStore from '../../store/useElectionStore';
+import { DEMO_ELIGIBILITY } from '../../data/demoMode';
 
 const electionOptions = [
   { id: 'lok-sabha', label: 'Lok Sabha', sub: 'General Election', icon: '🏛️' },
@@ -28,6 +31,26 @@ export default function EligibilityChecker() {
   const [age, setAge] = useState(18);
   const [citizen, setCitizen] = useState(null);
   const [registered, setRegistered] = useState(null);
+  const { isDemoMode } = useElectionStore();
+
+  useEffect(() => {
+    if (isDemoMode) {
+      setStep(DEMO_ELIGIBILITY.step);
+      setDirection('forward');
+      setElection(DEMO_ELIGIBILITY.election);
+      setAge(DEMO_ELIGIBILITY.age);
+      setCitizen(DEMO_ELIGIBILITY.citizen);
+      setRegistered(DEMO_ELIGIBILITY.registered);
+      return;
+    }
+
+    setStep(1);
+    setDirection('forward');
+    setElection('');
+    setAge(18);
+    setCitizen(null);
+    setRegistered(null);
+  }, [isDemoMode]);
 
   const goForward = () => { setDirection('forward'); setStep(s => s + 1); };
   const goBack = () => { setDirection('back'); setStep(s => s - 1); };
