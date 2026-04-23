@@ -12,6 +12,11 @@ const QUICK_STARTERS = [
   'What is NOTA?',
 ];
 
+function isStaleErrorMessage(message) {
+  const text = (message?.text || '').toLowerCase();
+  return text.includes('encountered an error processing your question') || text.includes('gemini api error');
+}
+
 function TypingIndicator() {
   return (
     <div className="flex items-center gap-1 px-4 py-3">
@@ -85,15 +90,21 @@ export default function ChatWidget({ isOpen, onClose, prefillMessage }) {
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
   const [localMessages, setLocalMessages] = useState(() => {
-    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch { return []; }
+    try {
+      const stored = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+      return stored.filter((message) => !isStaleErrorMessage(message));
+    } catch {
+      return [];
+    }
   });
 
   const allMessages = isDemoMode ? chatMessages : (chatMessages.length > 0 ? chatMessages : localMessages);
 
   useEffect(() => {
     if (chatMessages.length > 0) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(chatMessages));
-      setLocalMessages(chatMessages);
+      const cleanedMessages = chatMessages.filter((message) => !isStaleErrorMessage(message));
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(cleanedMessages));
+      setLocalMessages(cleanedMessages);
     }
   }, [chatMessages]);
 
