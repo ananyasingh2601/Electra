@@ -1,82 +1,43 @@
 // src/data/glossary.js
 
 export const GLOSSARY = {
-  'MCC': {
-    term: 'Model Code of Conduct',
-    definition: 'A set of guidelines issued by the Election Commission of India for political parties and candidates during elections. It comes into force from the date of announcement of elections and remains in force till the completion of the election process.',
-    relatedStage: 'mcc'
-  },
-  'EVM': {
-    term: 'Electronic Voting Machine',
-    definition: 'A portable electronic device used for recording votes in Indian elections. It consists of two units — Control Unit and Ballot Unit — and is designed to be tamper-proof.',
-    relatedStage: 'polling'
-  },
-  'VVPAT': {
-    term: 'Voter Verifiable Paper Audit Trail',
-    definition: 'A method that provides feedback to voters by displaying a slip with the name and symbol of the candidate they voted for. The slip is visible for 7 seconds before being cut and dropped into a sealed box.',
-    relatedStage: 'polling'
-  },
-  'NOTA': {
-    term: 'None of the Above',
-    definition: 'An option on the EVM ballot that allows voters to officially cast their vote for no candidate. It was introduced by the Supreme Court of India in 2013 for all elections.',
-    relatedStage: 'polling'
-  },
-  'ECI': {
-    term: 'Election Commission of India',
-    definition: 'An autonomous constitutional authority responsible for administering Union and State election processes in India. It was established on 25 January 1950.',
-    relatedStage: 'announcement'
-  },
-  'Lok Sabha': {
-    term: 'Lok Sabha (House of the People)',
-    definition: 'The lower house of India\'s bicameral Parliament. It has a maximum of 552 members who are directly elected by the people of India. Members serve 5-year terms.',
-    relatedStage: null
-  },
-  'Vidhan Sabha': {
-    term: 'Vidhan Sabha (State Legislative Assembly)',
-    definition: 'The lower house of the state legislature in each state of India. Members are directly elected from territorial constituencies. The number of seats varies by state.',
-    relatedStage: null
-  },
-  'Rajya Sabha': {
-    term: 'Rajya Sabha (Council of States)',
-    definition: 'The upper house of India\'s Parliament. Members are elected indirectly by state and union territory legislatures. One-third of members retire every two years.',
-    relatedStage: null
-  },
-  'Returning Officer': {
-    term: 'Returning Officer',
-    definition: 'An officer appointed by the ECI to conduct elections in a constituency. They are responsible for accepting nominations, ensuring fair polling, and declaring results.',
-    relatedStage: 'nomination'
-  },
-  'Security Deposit': {
-    term: 'Security Deposit',
-    definition: 'A refundable deposit that candidates must pay when filing nominations. For Lok Sabha: ₹25,000 (general) and ₹12,500 (SC/ST). Forfeited if candidate gets less than 1/6th of total votes.',
-    relatedStage: 'nomination'
-  },
-  'Silent Period': {
-    term: 'Silent Period / Campaign Blackout',
-    definition: 'A 48-hour period before polling day during which all active campaigning must stop. No rallies, media ads, or social media campaigning is allowed.',
-    relatedStage: 'silent'
-  },
-  'Postal Ballot': {
-    term: 'Postal Ballot',
-    definition: 'A method by which voters can cast their vote by post instead of visiting a polling station. Available to service voters, absentee voters (senior citizens, PwD), and election duty staff.',
-    relatedStage: 'counting'
-  },
-  'Form 2A': {
-    term: 'Form 2A',
-    definition: 'The nomination form that candidates must fill out to contest elections. It includes personal details, affidavit of criminal record, assets/liabilities, and educational qualifications.',
-    relatedStage: 'nomination'
-  },
-  'Indelible Ink': {
-    term: 'Indelible Ink',
-    definition: 'A semi-permanent ink applied to the left index finger of voters after they have cast their vote. It prevents double voting and is manufactured by Mysore Paints & Varnish Ltd.',
-    relatedStage: 'polling'
-  }
+  'ECI': { term: 'Election Commission of India', shortDef: 'Autonomous constitutional body that administers elections in India.', fullDef: 'Established on 25 January 1950, the ECI supervises elections to the Lok Sabha, Rajya Sabha, State Legislatures, and offices of President and Vice President. It is led by the Chief Election Commissioner and two Election Commissioners.', relatedTerms: ['MCC', 'Electoral Roll', 'Returning Officer'], officialLink: 'https://eci.gov.in' },
+  'EVM': { term: 'Electronic Voting Machine', shortDef: 'Portable electronic device used for recording votes in Indian elections.', fullDef: 'Consists of a Control Unit and Ballot Unit. Manufactured by BEL and ECIL under strict ECI supervision. Each EVM can record up to 3840 votes and is designed to be tamper-proof. Introduced in 1982, used nationwide since 2004.', relatedTerms: ['VVPAT', 'NOTA', 'Polling Day'], officialLink: '' },
+  'VVPAT': { term: 'Voter Verifiable Paper Audit Trail', shortDef: 'Paper slip system that lets voters verify their vote was recorded correctly.', fullDef: 'Attached to the EVM, it displays a printed slip with the candidate name and symbol for 7 seconds before cutting and dropping into a sealed box. Used for random verification audits. Mandated by Supreme Court since 2019.', relatedTerms: ['EVM', 'Polling Day'], officialLink: '' },
+  'MCC': { term: 'Model Code of Conduct', shortDef: 'Set of guidelines issued by ECI for political parties and candidates during elections.', fullDef: 'Comes into force from the date of election announcement until results. Prohibits new government schemes, use of government resources for campaigning, and appeals to caste or religion. Violations can lead to EC action.', relatedTerms: ['ECI', 'Campaign'], officialLink: '' },
+  'NOTA': { term: 'None of the Above', shortDef: 'Option on the ballot allowing voters to reject all candidates.', fullDef: 'Introduced by Supreme Court order in September 2013. Allows voters to express disapproval of all contesting candidates without invalidating their vote. NOTA votes are counted but do not affect the result.', relatedTerms: ['EVM', 'VVPAT'], officialLink: '' },
+  'Returning Officer': { term: 'Returning Officer', shortDef: 'Officer appointed by ECI to conduct elections in a constituency.', fullDef: 'Responsible for accepting nomination papers, conducting scrutiny, overseeing polling, counting votes, and declaring results. Usually a senior government official. Each constituency has one RO.', relatedTerms: ['Presiding Officer', 'Scrutiny', 'Constituency'], officialLink: '' },
+  'Presiding Officer': { term: 'Presiding Officer', shortDef: 'Officer in charge of a polling station on election day.', fullDef: 'Ensures smooth conduct of polling, verifies voter identity, manages the EVM, and seals the machines after voting. Reports to the Returning Officer. Assisted by polling officers.', relatedTerms: ['Returning Officer', 'Booth Level Officer'], officialLink: '' },
+  'Booth Level Officer': { term: 'Booth Level Officer (BLO)', shortDef: 'Field-level functionary who maintains the electoral roll for a polling booth.', fullDef: 'Responsible for voter registration, updating rolls, distributing voter slips, and voter awareness. Acts as the link between the ECI and the voter at the grassroots level. Usually a government employee.', relatedTerms: ['Electoral Roll', 'Presiding Officer'], officialLink: '' },
+  'Electoral Roll': { term: 'Electoral Roll / Voter List', shortDef: 'Official list of persons eligible to vote in a constituency.', fullDef: 'Prepared and maintained by the ECI. Updated through summary revision (annually) and continuous updating. Citizens can check, add, or modify their entries through Form 6, 7, or 8. Must be registered to vote.', relatedTerms: ['Form 6', 'ECI', 'Booth Level Officer'], officialLink: 'https://voters.eci.gov.in' },
+  'Form 6': { term: 'Form 6', shortDef: 'Application form for new voter registration in India.', fullDef: 'Used by Indian citizens turning 18 to register as voters. Requires personal details, address proof, age proof, and a passport-size photo. Can be submitted online at NVSP portal or offline at the local ERO.', relatedTerms: ['Electoral Roll', 'ECI'], officialLink: 'https://voters.eci.gov.in' },
+  'Lok Sabha': { term: 'Lok Sabha (House of the People)', shortDef: 'The lower house of India\'s bicameral Parliament with 543 elected members.', fullDef: 'Members are directly elected by citizens through universal adult suffrage using the First Past The Post system. Each member represents one constituency. The party/coalition with majority forms the government. Term: 5 years.', relatedTerms: ['Constituency', 'First Past The Post', 'Rajya Sabha'], officialLink: '' },
+  'Rajya Sabha': { term: 'Rajya Sabha (Council of States)', shortDef: 'The upper house of India\'s Parliament with 245 members.', fullDef: 'Members are elected indirectly by state and UT legislatures using Proportional Representation. One-third of members retire every two years, making it a permanent body. Vice President is the ex-officio Chairman.', relatedTerms: ['Lok Sabha', 'Proportional Representation', 'Vidhan Sabha'], officialLink: '' },
+  'Vidhan Sabha': { term: 'Vidhan Sabha (State Legislative Assembly)', shortDef: 'The lower house of the state legislature in India.', fullDef: 'Members (MLAs) are directly elected from territorial constituencies within the state. The number of seats varies by state (60 to 403). The party with majority forms the state government led by the Chief Minister.', relatedTerms: ['Lok Sabha', 'Constituency'], officialLink: '' },
+  'Constituency': { term: 'Constituency', shortDef: 'A defined geographical area whose residents elect a representative.', fullDef: 'India has 543 Lok Sabha constituencies and approximately 4120 Vidhan Sabha constituencies. Boundaries are drawn by the Delimitation Commission. Each constituency elects one representative through FPTP voting.', relatedTerms: ['Lok Sabha', 'Vidhan Sabha', 'First Past The Post'], officialLink: '' },
+  'First Past The Post': { term: 'First Past The Post (FPTP)', shortDef: 'Electoral system where the candidate with the most votes wins, regardless of majority.', fullDef: 'Used for Lok Sabha and Vidhan Sabha elections in India. Simple plurality system — the candidate with the highest number of votes wins, even without 50%+ votes. Favors larger parties and creates clear mandates.', relatedTerms: ['Constituency', 'Proportional Representation', 'Simple Majority'], officialLink: '' },
+  'Simple Majority': { term: 'Simple Majority', shortDef: 'More than 50% of votes cast or members present and voting.', fullDef: 'Required for most ordinary legislation in Parliament. Different from absolute majority (50%+ of total membership) and special majority (2/3 of members present). In elections, FPTP doesn\'t require a simple majority to win.', relatedTerms: ['First Past The Post', 'Lok Sabha'], officialLink: '' },
+  'Anti-Defection Law': { term: 'Anti-Defection Law', shortDef: 'Law preventing elected representatives from switching parties after election.', fullDef: 'Introduced by the 52nd Amendment (1985) as the Tenth Schedule of the Constitution. A member can be disqualified if they voluntarily give up party membership or vote against party whip. Speaker/Chairman decides disqualification.', relatedTerms: ['Lok Sabha', 'Vidhan Sabha'], officialLink: '' },
+  'By-Election': { term: 'By-Election', shortDef: 'Election held to fill a vacancy in a legislative body between general elections.', fullDef: 'Conducted when a seat falls vacant due to death, resignation, or disqualification of the sitting member. ECI must fill the vacancy within 6 months (unless the remaining term is less than 1 year). Same FPTP process as general elections.', relatedTerms: ['ECI', 'Constituency'], officialLink: '' },
+  'Mid-Term Election': { term: 'Mid-Term Election', shortDef: 'Election held before the normal end of a legislative body\'s term.', fullDef: 'Occurs when the legislature is dissolved before completing its 5-year term, usually due to loss of confidence or inability to form a stable government. The entire house is dissolved and fresh elections are held for all seats.', relatedTerms: ['Lok Sabha', 'Vidhan Sabha', 'By-Election'], officialLink: '' },
+  'Postal Ballot': { term: 'Postal Ballot', shortDef: 'Method of voting by post for eligible voters who cannot visit polling stations.', fullDef: 'Available to service voters (military, diplomatic), election duty staff, special voters (President, VPs, Governors), persons with disabilities, and senior citizens 80+. The ballot paper is sent and returned by post under strict verification.', relatedTerms: ['Proxy Voting', 'Polling Day'], officialLink: '' },
+  'Proxy Voting': { term: 'Proxy Voting', shortDef: 'Voting through an authorized representative on behalf of an absent voter.', fullDef: 'Currently available only to classified service voters (armed forces personnel posted in sensitive areas). The voter nominates a proxy who votes on their behalf at the designated polling station. Requires prior registration and approval.', relatedTerms: ['Postal Ballot', 'ECI'], officialLink: '' },
+  'Proportional Representation': { term: 'Proportional Representation (PR)', shortDef: 'Electoral system where seats are allocated in proportion to votes received.', fullDef: 'Used in India for Rajya Sabha and Presidential elections (single transferable vote variant). Voters rank candidates in preference. Ensures minority representation but can lead to fragmented legislatures.', relatedTerms: ['Rajya Sabha', 'First Past The Post'], officialLink: '' },
+  'Exit Poll': { term: 'Exit Poll', shortDef: 'Survey of voters conducted immediately after they exit polling stations.', fullDef: 'Used to predict election outcomes before official counting. Prohibited from publication during the election period (between first and last phase of polling) as per Section 126A of the Representation of the People Act. Only allowed after all phases complete.', relatedTerms: ['Opinion Poll', 'Polling Day'], officialLink: '' },
+  'Opinion Poll': { term: 'Opinion Poll', shortDef: 'Pre-election survey gauging voter preferences and likely outcomes.', fullDef: 'Conducted before elections to measure public sentiment. Unlike exit polls, these are based on stated intentions rather than actual votes. Banned from publication 48 hours before polling under ECI guidelines.', relatedTerms: ['Exit Poll', 'Silent Period'], officialLink: '' },
+  'Security Deposit': { term: 'Security Deposit', shortDef: 'Refundable deposit paid by candidates when filing nominations.', fullDef: 'Lok Sabha: ₹25,000 (general), ₹12,500 (SC/ST). Vidhan Sabha: ₹10,000 (general), ₹5,000 (SC/ST). Forfeited if candidate fails to secure at least 1/6th of total valid votes polled. Prevents frivolous candidatures.', relatedTerms: ['Nomination Paper', 'Scrutiny'], officialLink: '' },
+  'Declaration of Assets': { term: 'Declaration of Assets', shortDef: 'Mandatory disclosure of a candidate\'s financial assets and liabilities.', fullDef: 'All candidates must file an affidavit declaring their assets, liabilities, criminal cases, and educational qualifications along with the nomination paper. This information is publicly available. Failure to disclose or false declaration can lead to disqualification.', relatedTerms: ['Affidavit', 'Nomination Paper'], officialLink: '' },
+  'Affidavit': { term: 'Affidavit', shortDef: 'Sworn written statement by candidates disclosing personal information.', fullDef: 'Filed along with the nomination form, it includes details of criminal cases, assets and liabilities of the candidate and their spouse, educational qualifications, and PAN/income tax details. Made mandatory by Supreme Court in 2003.', relatedTerms: ['Declaration of Assets', 'Nomination Paper'], officialLink: '' },
+  'Nomination Paper': { term: 'Nomination Paper', shortDef: 'Official form filed by a candidate to contest an election.', fullDef: 'Must be filed with the Returning Officer within the prescribed period. Requires proposer and seconder (registered voters of the constituency). Accompanied by security deposit, affidavit, and party authorization (if applicable).', relatedTerms: ['Returning Officer', 'Scrutiny', 'Security Deposit'], officialLink: '' },
+  'Scrutiny': { term: 'Scrutiny of Nominations', shortDef: 'Formal examination of nomination papers by the Returning Officer.', fullDef: 'Held on a designated date after nominations close. The RO checks validity of papers — proper form, adequate proposers, valid deposit, complete affidavit. Invalid nominations are rejected. Candidates and their agents can raise objections.', relatedTerms: ['Nomination Paper', 'Returning Officer'], officialLink: '' },
+  'Reserved Seat': { term: 'Reserved Seat / Reservation', shortDef: 'Constituency reserved for candidates from SC or ST communities.', fullDef: 'The Constitution reserves seats in Lok Sabha and state assemblies for Scheduled Castes and Scheduled Tribes in proportion to their population. Only candidates belonging to these communities can contest from reserved constituencies. Currently 84 SC and 47 ST seats in Lok Sabha.', relatedTerms: ['Constituency', 'Lok Sabha'], officialLink: '' },
+  'General Seat': { term: 'General / Unreserved Seat', shortDef: 'Constituency open to candidates of any caste, community, or background.', fullDef: 'Any eligible citizen can contest from a general constituency regardless of their social category. The majority of constituencies in India are general/unreserved. Candidates from SC/ST/OBC can also contest from general seats.', relatedTerms: ['Reserved Seat', 'Constituency'], officialLink: '' },
+  'Silent Period': { term: 'Silent Period / Campaign Blackout', shortDef: '48-hour period before polling during which all campaigning must cease.', fullDef: 'Starts 48 hours before polling day in the constituency. No rallies, public meetings, media advertisements, or social media campaigning. Exit polls also prohibited during this period. Violations can lead to disqualification.', relatedTerms: ['MCC', 'Exit Poll', 'Opinion Poll'], officialLink: '' },
+  'Indelible Ink': { term: 'Indelible Ink', shortDef: 'Semi-permanent ink applied to voters\' fingers to prevent double voting.', fullDef: 'Applied to the left index finger after casting a vote. Manufactured exclusively by Mysore Paints & Varnish Limited. Contains silver nitrate and remains visible for 2-4 weeks. Has been used in Indian elections since 1962.', relatedTerms: ['Polling Day', 'EVM'], officialLink: '' },
 };
 
-// Get all glossary terms for tooltip matching
 export const GLOSSARY_TERMS = Object.keys(GLOSSARY);
 
-// Function to find glossary terms in text
 export function findGlossaryTerms(text) {
   const found = [];
   for (const term of GLOSSARY_TERMS) {
