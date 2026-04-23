@@ -1,0 +1,317 @@
+/* =============================================
+   ELECTRA — Global Styles & Design Tokens
+   Editorial/Magazine Aesthetic
+   ============================================= */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── CSS Custom Properties ─── */
+:root {
+  /* Backgrounds */
+  --color-bg: #0B0F1A;
+  --color-bg-secondary: #141824;
+  --color-surface: #1C2233;
+  --color-surface-elevated: #242B3D;
+
+  /* Text */
+  --color-text-primary: #F5F0E8;
+  --color-text-secondary: #A8A0B8;
+  --color-text-muted: #6B6480;
+
+  /* Accents */
+  --color-accent-gold: #D4A853;
+  --color-accent-gold-light: #E8C97A;
+  --color-accent-crimson: #C0392B;
+  --color-accent-emerald: #16A34A;
+  --color-accent-violet: #7C3AED;
+
+  /* Border */
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-hover: rgba(255, 255, 255, 0.15);
+
+  /* Typography */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+
+  /* Spacing & Radius */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.6);
+  --shadow-gold: 0 0 30px rgba(212, 168, 83, 0.15);
+
+  /* Sidebar */
+  --sidebar-width: 280px;
+  --chat-width: 360px;
+}
+
+/* ─── Base Reset ─── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* ─── Selection ─── */
+::selection {
+  background-color: rgba(212, 168, 83, 0.3);
+  color: var(--color-text-primary);
+}
+
+::-moz-selection {
+  background-color: rgba(212, 168, 83, 0.3);
+  color: var(--color-text-primary);
+}
+
+/* ─── Custom Scrollbar ─── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+}
+
+/* ─── Typography ─── */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-text-primary);
+}
+
+h1 {
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+
+/* ─── Editorial Components ─── */
+
+/* Glass surface */
+.glass-surface {
+  background: rgba(28, 34, 51, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.glass-surface-elevated {
+  background: rgba(36, 43, 61, 0.7);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+}
+
+/* Gold rule — editorial separator */
+.gold-rule {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-accent-gold), transparent);
+  border: none;
+  margin: 2rem 0;
+}
+
+.gold-rule-left {
+  height: 2px;
+  width: 60px;
+  background: var(--color-accent-gold);
+  border: none;
+  margin: 1rem 0;
+}
+
+/* Editorial badge */
+.editorial-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent-gold);
+  background: rgba(212, 168, 83, 0.1);
+  border: 1px solid rgba(212, 168, 83, 0.2);
+  border-radius: var(--radius-sm);
+}
+
+/* Section label — editorial style */
+.section-label {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-accent-gold);
+}
+
+/* ─── Layout ─── */
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.app-sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: var(--sidebar-width);
+  background: var(--color-bg-secondary);
+  border-right: 1px solid var(--color-border);
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.app-main {
+  margin-left: var(--sidebar-width);
+  margin-right: var(--chat-width);
+  min-height: 100vh;
+  flex: 1;
+  padding: 2rem 3rem;
+}
+
+.app-chat-panel {
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: var(--chat-width);
+  background: var(--color-bg-secondary);
+  border-left: 1px solid var(--color-border);
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── Mobile Responsive ─── */
+@media (max-width: 1024px) {
+  .app-sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .app-sidebar.open {
+    transform: translateX(0);
+  }
+
+  .app-main {
+    margin-left: 0;
+    margin-right: 0;
+    padding: 1rem 1.25rem;
+    padding-bottom: 80px;
+  }
+
+  .app-chat-panel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 50;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+  }
+
+  .app-chat-panel.open {
+    transform: translateX(0);
+  }
+}
+
+/* ─── Mobile Bottom Nav ─── */
+.mobile-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  background: var(--color-bg-secondary);
+  border-top: 1px solid var(--color-border);
+  z-index: 45;
+  padding: 0 8px;
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+@media (max-width: 1024px) {
+  .mobile-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+}
+
+/* ─── Phase Colors ─── */
+.phase-pre { --phase-color: #4F46E5; }
+.phase-campaign { --phase-color: #D97706; }
+.phase-voting { --phase-color: #DC2626; }
+.phase-post { --phase-color: #16A34A; }
+
+/* ─── Animations ─── */
+@keyframes typing-dot {
+  0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
+  30% { opacity: 1; transform: translateY(-4px); }
+}
+
+.typing-dot {
+  animation: typing-dot 1.4s infinite;
+}
+
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+/* ─── Links ─── */
+a {
+  color: var(--color-accent-gold);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: var(--color-accent-gold-light);
+}
